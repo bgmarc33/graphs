@@ -7,8 +7,9 @@ int main() {
     g.addVertex("MA");
     g.addVertex("CA");
 
+    g.addEdge("MA", "CA", 1300);
     g.addEdge("NY", "CA", 1000);
 
-    g.DFS("NY");
+    std::cout << g.isConnected() << std::endl;
     return 0;
 }

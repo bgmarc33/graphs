@@ -8,6 +8,7 @@
 #include <iostream>
 #include <vector>
 #include <stack>
+#include <queue>
 #include <unordered_map>
 
 /*
@@ -104,7 +105,7 @@ class Graph {
          */
 
         void _DFSRec(int vertex, bool visited[]) {
-            std::cout << "Vertex: " << this->indexToVertex(vertex) << std::endl;
+            // std::cout << "Vertex: " << this->indexToVertex(vertex) << std::endl;
             visited[vertex] = true;
             for (int i = 0; i < this->vertices[vertex].size(); i++) {
                 Edge e = this->vertices[vertex][i];
@@ -128,7 +129,7 @@ class Graph {
                 int currentVertex = vertexStack.top();
                 vertexStack.pop();
 
-                std::cout << "Vertex: " << this->indexToVertex(currentVertex) << std::endl;
+                // std::cout << "Vertex: " << this->indexToVertex(currentVertex) << std::endl;
 
                 for (int i = 0; i < this->vertices[currentVertex].size(); i++) {
                     Edge e = this->vertices[currentVertex][i];
@@ -139,6 +140,66 @@ class Graph {
                 }
             }
         }
+
+        /*
+         *  If all vertices share a path
+         */
+
+        bool isConnected() {
+            bool visited[this->vertexList.size()];
+            for (int i = 0; i < this->vertexList.size(); i++) {
+                visited[i] = false;
+            }
+
+            this->_DFSIter(0, visited);
+            for (int i = 0; i < this->vertexList.size(); i++) {
+                if (!visited[i]) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        /*
+         *  Breadth first search
+         */
+
+        void BFS(T vertex) {
+            if (this->vertexList.size() > 0) {
+                int vertexIndex = this->vertexToIndex(vertex);
+                if (vertexIndex != -1) {
+                    bool visited[this->vertexList.size()];
+                    for (int i = 0; i < this->vertexList.size(); i++) {
+                        visited[i] = false;
+                    }
+
+                    this->_BFS(0, visited);
+                }
+            }
+        }
+
+        void _BFS(int vertex, bool visited[]) {
+            std::queue<int> vertexQueue;
+            vertexQueue.push(vertex);
+            visited[vertex] = true;
+
+            while (!vertexQueue.empty()) {
+                int currentVertex = vertexQueue.front();
+                vertexQueue.pop();
+
+                // std::cout << "Vertex: " << this->indexToVertex(currentVertex) << std::endl;
+
+                for (int i = 0; i < this->vertices[currentVertex].size(); i++) {
+                    Edge e = this->vertices[currentVertex][i];
+                    if (!visited[e.destination]) {
+                        vertexQueue.push(e.destination);
+                        visited[e.destination] = true;
+                    }
+                }
+            }
+        }
+
 };
 
 
