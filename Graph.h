@@ -25,7 +25,20 @@ struct Edge {
     }
 };
 
+/*  Graphs:
+ *  -------
+ *  Adjacency Matrix implementations generally better for dense graphs to save time
+ *  Adjacency List implementations generally better for sparse graphs to save memory
+ */
+
+
 /*
+ *  Finding neighbors are O(|V|) since a Vertex can have at most V neighbors
+ *  Looking for connected edge is O(|V|) or O(log |V|) if sorted
+ *
+ *  Space Complexity: O(|V| + |E|)
+ *                    O(|V|^2) - for full mesh
+ *
  *  T represents the vertex values
  */
 
@@ -200,6 +213,19 @@ class ALGraph {
             }
         }
 };
+
+/*
+ *  Vertex Edge lookups are O(1) given the indices of the vertices
+ *  ( or if hash table is used to get index )
+ *
+ *  Finding a neighboring vertex takes O(|V|)
+ *
+ *  Adding edge is O(1)
+ *
+ *  Adding vertex is O(|V|^2)
+ *
+ *  Space Complexity: O(|V|^2) ..
+ */
 
 class AMGraph {
     private:
