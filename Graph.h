@@ -30,15 +30,15 @@ struct Edge {
  */
 
 template <class T>
-class Graph {
+class ALGraph {
     private:
         std::unordered_map<T, int> vertexList;
         std::unordered_map<int, T> vertexDetailList;
         std::vector<std::vector<Edge>> vertices;
     public:
-        Graph() {}
+        ALGraph() {}
 
-        Graph(T* vertices, int size) {
+        ALGraph(T* vertices, int size) {
             for (int i = 0; i < size; i++) {
                 this->vertexList[vertices[i]] = i;
                 this->vertexDetailList[i] = vertices[i];
@@ -199,7 +199,33 @@ class Graph {
                 }
             }
         }
+};
 
+class AMGraph {
+    private:
+        int** _graph;
+        const int GRAPH_SIZE;
+    public:
+        AMGraph():_graph(nullptr), GRAPH_SIZE(0) {};
+
+        AMGraph(const int& vertices):GRAPH_SIZE(vertices) {
+            this->_graph = new int*[this->GRAPH_SIZE];
+            for (int i = 0; i < this->GRAPH_SIZE; i++) {
+                this->_graph[i] = new int[this->GRAPH_SIZE];
+                for (int j = 0; j < this->GRAPH_SIZE; j++) {
+                    this->_graph[i][j] = 0;
+                }
+            }
+        }
+
+        ~AMGraph() {
+            for (int i = 0; i < this->GRAPH_SIZE; i++) {
+                delete [] this->_graph[i];
+            }
+
+            delete [] this->_graph;
+            this->_graph = nullptr;
+        }
 };
 
 
