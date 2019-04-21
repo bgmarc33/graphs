@@ -252,6 +252,12 @@ class AMGraph {
             delete [] this->_graph;
             this->_graph = nullptr;
         }
+
+        // adding an edge is constant time
+        void addEdge(int vertexA, int vertexB) {
+            this->_graph[vertexA][vertexB] = 1;
+            this->_graph[vertexB][vertexA] = 1; // undirected
+        }
 };
 
 
